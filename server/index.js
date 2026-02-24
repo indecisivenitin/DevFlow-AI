@@ -37,13 +37,11 @@ app.use("/api/sessions", require("./routes/sessions"));
 app.use("/api/ai", require("./routes/ai"));
 app.use("/api/contact", contactRoutes);
 
-/* -------------------- Health Check -------------------- */
 
 app.get("/", (req, res) => {
-  res.json({ success: true, message: "DevFlow API running 🚀" });
+  res.json({ success: true, message: "DevFlow API running " });
 });
 
-/* -------------------- Global Error Handler -------------------- */
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
@@ -53,19 +51,18 @@ app.use((err, req, res, next) => {
   });
 });
 
-/* -------------------- Mongo Connection + Server Start -------------------- */
 
 const PORT = process.env.PORT || 5000;
 
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
-    console.log("✅ MongoDB Connected");
+    console.log(" MongoDB Connected");
     app.listen(PORT, () =>
-      console.log(`🚀 Server running on port ${PORT}`)
+      console.log(`Server running on port ${PORT}`)
     );
   })
   .catch((err) => {
-    console.error("❌ MongoDB connection failed:", err.message);
+    console.error(" MongoDB connection failed:", err.message);
     process.exit(1);
   });

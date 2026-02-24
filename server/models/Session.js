@@ -47,7 +47,7 @@ const sessionSchema = new mongoose.Schema(
 );
 
 /*
-🔥 Auto Welcome Message (only when session is new)
+Auto Welcome Message (only when session is new)
 */
 sessionSchema.pre("validate", function () {
   if (this.isNew && this.messages.length === 0) {
@@ -62,14 +62,14 @@ I can:
 What are you building today? 🚀`;
 
     this.messages.push({
-      role: "assistant",   // ✅ FIXED
+      role: "assistant",   
       content: welcomeMessage,
     });
   }
 });
 
 /*
-🔥 Trim messages + update lastMessage
+ Trim messages + update lastMessage
 */
 sessionSchema.pre("save", function () {
   const MAX_MESSAGES = 20;

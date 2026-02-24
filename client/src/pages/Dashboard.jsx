@@ -29,16 +29,14 @@ export default function Dashboard() {
   /* -------------------- Fetch Sessions -------------------- */
   useEffect(() => {
     const initSessions = async () => {
-      const res = await fetch("http://localhost:5000/api/sessions", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/sessions`,  {
         credentials: "include",
       });
 
       const data = await res.json();
 
       if (data.length === 0) {
-        const createRes = await fetch(
-          "http://localhost:5000/api/sessions",
-          {
+        const createRes = await fetch(`${import.meta.env.VITE_API_URL}/api/sessions`, {
             method: "POST",
             credentials: "include",
           }
@@ -49,7 +47,7 @@ export default function Dashboard() {
         setSessions([newSession]);
         setActiveSessionId(newSession._id);
 
-        // ✅ LOAD welcome message
+        //  LOAD welcome message
         setMessages(newSession.messages || []);
       } else {
         setSessions(data);
@@ -63,7 +61,7 @@ export default function Dashboard() {
 
   /* -------------------- Create Session -------------------- */
   const createNewSession = async () => {
-    const res = await fetch("http://localhost:5000/api/sessions", {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/sessions`, {
       method: "POST",
       credentials: "include",
     });
@@ -73,7 +71,7 @@ export default function Dashboard() {
     setSessions((prev) => [newSession, ...prev]);
     setActiveSessionId(newSession._id);
 
-    // ✅ LOAD welcome message instantly
+    //  LOAD welcome message instantly
     setMessages(newSession.messages || []);
   };
 
@@ -95,9 +93,7 @@ export default function Dashboard() {
     setLoading(true);
 
     try {
-      const response = await fetch(
-        "http://localhost:5000/api/ai/stream",
-        {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/ai/stream`, {
           method: "POST",
           credentials: "include",
           headers: { "Content-Type": "application/json" },
@@ -123,7 +119,7 @@ export default function Dashboard() {
 
         const chunk = decoder.decode(value);
 
-        // 🔥 Title update detection
+        // Title update detection
         if (chunk.startsWith("__TITLE__:")) {
           const newTitle = chunk.replace("__TITLE__:", "").trim();
 
@@ -157,7 +153,7 @@ export default function Dashboard() {
 
   /* -------------------- Logout -------------------- */
   const handleLogout = async () => {
-    await fetch("http://localhost:5000/api/auth/logout", {
+    await fetch(`${import.meta.env.VITE_API_URL}/api/auth/logout`, {
       method: "POST",
       credentials: "include",
     });

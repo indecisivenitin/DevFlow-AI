@@ -66,7 +66,6 @@ router.post("/stream", authMiddleware, async (req, res) => {
     res.setHeader("Cache-Control", "no-cache");
     res.flushHeaders();
 
-    // 🔥 Send title update first (if changed)
     if (newTitle) {
       res.write(`__TITLE__:${newTitle}\n`);
     }
