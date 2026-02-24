@@ -12,7 +12,10 @@ app.set("trust proxy", 1);
 
 app.use(
   cors({
-    origin: process.env.VITE_URL,
+    origin: [
+  "https://dev-flow-ai-six.vercel.app",
+  "http://localhost:5173",
+],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
