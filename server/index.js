@@ -8,15 +8,7 @@ require("dotenv").config();
 const app = express();
 app.set("trust proxy", 1);
 
-/* -------------------- Middleware -------------------- */
 
-app.use(express.json());
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Credentials", "true");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  next();
-});
-app.use(cookieParser());
 
 app.use(
   cors({
@@ -28,6 +20,12 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+app.options("*", cors());
+
+/* -------------------- Middleware -------------------- */
+
+app.use(express.json());
+app.use(cookieParser());
 
 /* -------------------- Routes -------------------- */
 
