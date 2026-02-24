@@ -22,7 +22,7 @@ app.use(cookieParser());
 app.use(
   cors({
     origin: ["http://localhost:5173",
-            "https://your-frontend-url.vercel.app"
+            "https://dev-flow-ai-six.vercel.app/"
     ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
