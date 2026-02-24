@@ -12,9 +12,7 @@ app.set("trust proxy", 1);
 
 app.use(
   cors({
-    origin: ["http://localhost:5173",
-            "https://dev-flow-ai-git-main-nitins-projects-e996c1dd.vercel.app/"
-    ],
+    origin: process.env.VITE_URL,
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
