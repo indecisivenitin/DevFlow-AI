@@ -3,7 +3,6 @@ const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-
 const authMiddleware = require("../middleware/authMiddleware");
 
 router.get("/me", authMiddleware, async (req, res) => {
@@ -40,7 +39,8 @@ router.post("/login", async (req, res) => {
 
   res.cookie("token", token, {
     httpOnly: true,
-    secure: false,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
   });
 
   res.json({ message: "Logged in" });
@@ -51,4 +51,4 @@ router.post("/logout", (req, res) => {
   res.json({ message: "Logged out" });
 });
 
-module.exports = router;  
+module.exports = router;

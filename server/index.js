@@ -2,9 +2,11 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
+const contactRoutes = require("./routes/contact");
 require("dotenv").config();
 
 const app = express();
+app.set("trust proxy", 1);
 
 /* -------------------- Middleware -------------------- */
 
@@ -19,7 +21,9 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: ["http://localhost:5173",
+            "https://your-frontend-url.vercel.app"
+    ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
@@ -31,6 +35,7 @@ app.use(
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/sessions", require("./routes/sessions"));
 app.use("/api/ai", require("./routes/ai"));
+app.use("/api/contact", contactRoutes);
 
 /* -------------------- Health Check -------------------- */
 
