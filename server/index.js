@@ -40,6 +40,11 @@ app.get("/", (req, res) => {
 });
 
 
+app.get('/ping', (req,res) => {
+  res.json({ success: true, message: "Devflow is healthy " }); 
+}
+
+
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({
